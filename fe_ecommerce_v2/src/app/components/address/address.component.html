@@ -1,0 +1,66 @@
+<div class="header">
+    <div class="header__title">
+        Địa chỉ nhận hàng
+    </div>
+    <div class="header__description">
+        <div *ngIf="address.user_id === 0; then addAddress else showAddress">
+        </div>
+        <ng-template #addAddress >
+            <div class="add-address" (click)="showDialog()">*Thêm mới</div>
+        </ng-template>
+        <ng-template #showAddress>
+            <div class="address-detail">
+                <div class="address-user-name">
+                    {{address.client_name}}
+                </div>
+                <div class="address-user-phone">
+                    {{address.client_phone}}
+                </div>
+                <div class="address-user-address">
+                    {{address.address}}, {{address.city}}, {{address.country}}
+                </div>
+                
+                <div class="address-user-func">
+                    <div class="add-address" (click)="changeAddress()">*Thay đổi</div>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+
+    <p-dialog [(visible)]="visible" [modal]="true" [style]="{width: '50vw'}">
+        <div class="add-address-wrapper">
+
+                <div class="header__title">
+                    Thêm địa chỉ mới
+                </div>
+            <form action="" [formGroup]="addressForm" (ngSubmit)="onSubmit()">
+                <p class="form-item">
+                    <label for="name">Họ và tên: </label>
+                    <input type="text" id="name" name="name" formControlName="client_name">
+                </p>
+                
+                <p class="form-item">
+                    <label for="phone">Số điện thoại: </label>
+                    <input type="text" id="phone" name="phone" formControlName="client_phone">
+                </p>
+                
+                <p class="form-item">
+                    <label for="address">Địa chỉ nhà: </label>
+                    <input type="text" id="address" name="address" formControlName="address">
+                </p>
+                <p class="form-item">
+                    <label for="city">Quận / Huyện: </label>
+                    <input type="text" id="city" name="city" formControlName="city">
+                </p>
+                <p class="form-item">
+                    <label for="country">Thành phố / Tỉnh: </label>
+                    <input type="text" id="country" name="country" formControlName="country">
+                </p>
+                
+                <p>
+                    <button class="btn btn-submit" type="submit">Thêm địa chỉ</button>
+                </p>
+            </form>
+        </div>
+    </p-dialog>
+</div>

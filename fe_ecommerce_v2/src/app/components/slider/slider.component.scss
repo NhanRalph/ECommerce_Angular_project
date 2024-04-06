@@ -1,0 +1,44 @@
+.swipper-wrap {
+    max-width: 70%;
+    margin: 0 auto 20px auto;
+    .swipper-item {
+        .swipper-item-wrapper {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            background-color: #fff;
+            border-radius: 20px;
+            padding: 20px;
+            img {
+                height: 360px;
+                object-fit: fill;
+                border-radius: 20px;
+            }
+    
+            .swipper-item-content {
+                padding: 0 0 0  20px;
+                .swipper-item-content-name {
+                    font-size: 50px;
+                    font-family: 'Franklin Gothic', 'Arial Narrow', Arial, sans-serif, Tahoma, Geneva, Verdana, sans-serif;
+                    font-weight: bolder;
+                    letter-spacing: 2px;
+                    margin-bottom: 20px;
+                    text-shadow: #fa541c 0px 0px 3px;
+                }
+    
+                .swipper-item-content-price {
+                    font-size: 60px;
+                    color: #fa541c;
+                    font-weight: bold;
+                }
+    
+                .swipper-item-content-quantity {
+                    margin-top: 10px;
+                    font-size: 14px;
+                    color: #333;
+                }
+            }
+        }
+
+    }
+}

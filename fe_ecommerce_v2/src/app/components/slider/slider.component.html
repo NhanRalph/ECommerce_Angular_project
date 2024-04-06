@@ -1,0 +1,14 @@
+
+<swiper-container *ngIf="productsList" class="swipper-wrap" slides-per-view="1"  autoplay loop="true" css-mode="true">
+
+    <swiper-slide  class="swipper-item" [style]="{'border-radius': '20px'}" *ngFor="let product of productsList">
+        <div class="swipper-item-wrapper">
+            <img src="assets/{{product.imgPath}}" alt="img">
+            <div class="swipper-item-content">
+                <p class="swipper-item-content-name">{{product.productName}}</p>
+                <p class="swipper-item-content-price">{{product.price | currency}}</p>
+                <p class="swipper-item-content-quantity">{{product.quantity}} remaining</p>
+            </div>
+        </div>
+    </swiper-slide>
+  </swiper-container>

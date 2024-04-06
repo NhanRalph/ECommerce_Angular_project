@@ -1,0 +1,99 @@
+.header {
+    margin-bottom: 50px;
+}
+
+.header__title {
+    
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.header__description {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+    .add-address {
+        color: #fa541c;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .address-detail {
+        display: grid;
+        grid-template-columns: 1fr 1fr 2fr 1fr;
+                
+        align-self: center;
+        justify-self: center;
+        grid-gap: 20px;
+
+        .address-user-name {
+            font-size: 16px;
+            font-weight: 700;
+            align-self: center;
+            justify-self: center;
+        }
+
+        .address-user-phone {
+            font-size: 16px;
+            align-self: center;
+            justify-self: center;
+        }
+
+        .address-user-address {
+            font-size: 16px;
+            align-self: center;
+            justify-self: center;
+        }
+
+        .address-user-func {
+            align-self: center;
+            justify-self: center;
+            .add-address {
+                text-align: center;
+                font-weight: 700;
+            }
+        }
+    }
+}
+
+.add-address-wrapper {
+    padding: 20px;
+    padding-top: 0;
+    color: #000;
+
+    .header__title {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        color: #fa541c;
+    }
+
+    .form-item {
+        margin-bottom: 20px;
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        font-size: 16px;
+
+        label {
+            align-self: center;
+            justify-self: left;
+        }
+
+        input {
+            padding: 12px 20px;
+            font-size: 16px;
+        }
+    }
+
+    .btn-submit {
+        padding: 10px 24px;
+        background-color: #fa541c;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+}

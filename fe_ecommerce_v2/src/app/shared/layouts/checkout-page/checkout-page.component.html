@@ -1,0 +1,6 @@
+<div class="checkoutpage">
+    <app-navbar></app-navbar>
+    <div class="div-line-space-100px"></div>
+    <app-address (addressChanged)="address = $event"></app-address>
+    <app-checkout-list [address]="address"></app-checkout-list>
+</div>

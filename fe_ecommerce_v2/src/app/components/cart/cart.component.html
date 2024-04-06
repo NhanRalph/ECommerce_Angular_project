@@ -1,0 +1,99 @@
+<div class="wrapper">
+    <div class="cart-header">
+        Giỏ Hàng ({{ cartLength }} sản phẩm)
+    </div>
+
+    <div class="cart-table">
+        <div class="card">
+            <p-table [value]="carts" [(selection)]="selectedCart" 
+            (selectionChange)="onSelectionChange($event)" dataKey="product_id" [tableStyle]="{'min-width': '50rem'}">
+                <ng-template pTemplate="header">
+                    <tr >
+                        <th style="width: 4rem" [style]="{'padding': '20px'}">
+                            <p-tableHeaderCheckbox ></p-tableHeaderCheckbox>
+                        </th>
+                        <th [style]="{'padding': '20px'}">Chọn sản phẩm ({{ cartLength }} sản phẩm)</th>
+                        <th [style]="{'padding': '20px', 'text-align': 'center'}">Đơn giá</th>
+                        <th [style]="{'padding': '20px', 'text-align': 'center'}">Số lượng</th>
+                        <th [style]="{'padding': '20px' , 'text-align': 'center'}">Thành tiền</th>
+                        <th [style]="{'padding': '20px', 'text-align': 'center'}">Chức năng</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-cartitem >
+                    <tr>
+                        <td [style]="{'padding': '20px'}">
+                            <p-tableCheckbox [value]="cartitem"></p-tableCheckbox>
+                            <!-- <p-checkbox [value]="cartitem" (onChange)="toggleCartItem($event, cartitem)"></p-checkbox> -->
+                        </td>
+                        <td [style]="{'padding': '20px', display: 'flex', 'align-items': 'center', 'font-weight': '700', 'font-size': '20px'}">
+                            <img src="assets/{{cartitem.product_image}}" alt="product image" style="width: 80px; height: 80px; margin-right:20px">
+                            {{cartitem.product_name}}
+                        </td>
+                        <td [style]="{'padding': '20px', 'text-align': 'center'}">{{cartitem.product_price | currency}}</td>
+                        <td [style]="{'padding': '20px', 'text-align': 'center'}">
+                            <span (click)="decreaseQuantity(cartitem)" [style]="{'padding': '20px', 'text-align': 'center'}">-</span>
+                            {{cartitem.quantity_in_cart}}
+                            <span (click)="increaseQuantity(cartitem)" [style]="{'padding': '20px', 'text-align': 'center'}">+</span>
+                        </td>
+                        <td [style]="{'padding': '20px', 'text-align': 'center', 'color': '#fa541c', 'font-weight': '700'}">{{cartitem.product_price * cartitem.quantity_in_cart | currency}} </td>
+                        <td [style]="{'padding': '20px','text-align': 'center', 'color': 'red', }" (click)="delete(cartitem)"><i class="pi pi-trash" style="font-size: 1.5rem; cursor: pointer;" ></i></td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div>
+
+    <!-- Cart table with checkbox do not have all -->
+    <!-- <div class="cart-table">
+        <div class="card">
+            <p-table [value]="carts" [(selection)]="selectedProducts" dataKey="product_id" [tableStyle]="{'min-width': '50rem'}">
+                <ng-template pTemplate="header">
+                    <tr >
+                        <th style="width: 4rem" [style]="{'padding': '20px'}">
+                        </th>
+                        <th [style]="{'padding': '20px'}">Chọn sản phẩm ({{ cartLength }} sản phẩm)</th>
+                        <th [style]="{'padding': '20px', 'text-align': 'center'}">Đơn giá</th>
+                        <th [style]="{'padding': '20px', 'text-align': 'center'}">Số lượng</th>
+                        <th [style]="{'padding': '20px' , 'text-align': 'center'}">Thành tiền</th>
+                        <th [style]="{'padding': '20px', 'text-align': 'center'}">Chức năng</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-cartitem >
+                    <tr>
+                        <td [style]="{'padding': '20px'}">
+                            <p-checkbox [value]="cartitem" (onChange)="toggleCartItem($event, cartitem)"></p-checkbox>
+                        </td>
+                        <td [style]="{'padding': '20px', display: 'flex', 'align-items': 'center', 'font-weight': '700', 'font-size': '20px'}">
+                            <img src="assets/{{cartitem.product_image}}" alt="product image" style="width: 80px; height: 80px; margin-right:20px">
+                            {{cartitem.product_name}}
+                        </td>
+                        <td [style]="{'padding': '20px', 'text-align': 'center'}">{{cartitem.product_price | currency}}</td>
+                        <td [style]="{'padding': '20px', 'text-align': 'center'}">
+                            <span (click)="decreaseQuantity(cartitem)" [style]="{'padding': '20px', 'text-align': 'center'}">-</span>
+                            {{cartitem.quantity_in_cart}}
+                            <span (click)="increaseQuantity(cartitem)" [style]="{'padding': '20px', 'text-align': 'center'}">+</span>
+                        </td>
+                        <td [style]="{'padding': '20px', 'text-align': 'center', 'color': '#fa541c', 'font-weight': '700'}">{{cartitem.product_price * cartitem.quantity_in_cart | currency}} </td>
+                        <td [style]="{'padding': '20px','text-align': 'center', 'color': 'red', }" (click)="delete(cartitem)"><i class="pi pi-trash" style="font-size: 1.5rem; cursor: pointer;" ></i></td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+    </div> -->
+
+    <div class="total-cart-wrap">
+        <div class="total-cart">
+            <div class="total-cart__item">
+                <div class="total-cart__item__title">
+                    Tổng thanh toán ({{ selectedCartLength }} sản phẩm):
+                </div>
+            </div>
+            <div class="total-cart__item">
+                <span class="total-cart__item__price">
+                    {{ totalPrice | currency }}
+                </span>
+                <button routerLink="/checkout" routerLinkActive="active" ariaCurrentWhenActive="page" class="btn-checkout" [disabled]="selectedCartLength === 0" (click)="checkout()">Thanh toán</button>
+        </div>
+    </div>
+    </div>
+</div>

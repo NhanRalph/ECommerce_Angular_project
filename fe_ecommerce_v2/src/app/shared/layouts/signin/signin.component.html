@@ -1,0 +1,44 @@
+<div class="navbar-wrap">
+    <div class="navbar">    
+            <img src="/assets/img/navbar/logo.png" alt="user-avt">
+    </div>
+</div>
+
+<div class="container">
+    <div class="wrapper">
+    
+        <div class="header">
+            Log In
+        </div>
+        <form  [formGroup]="signinForm" (ngSubmit)="login()">
+            <div class="form-item">
+                <input pInputText [ngClass]="{ 'errors': signinForm.controls['email'].touched && signinForm.controls['email'].errors }" formControlName="email" placeholder="Email">
+                <div class="error-message" *ngIf="signinForm.controls['email'].errors">
+                    <ng-container *ngIf="signinForm.controls['email'].touched && signinForm.controls['email'].hasError('required')">
+                        *Bắt buộc
+                    </ng-container>
+                    <ng-container *ngIf="signinForm.controls['email'].hasError('email')">
+                        *Bạn phải nhập email
+                    </ng-container>
+                </div>
+            </div>
+            <div class="form-item">
+                <input pInputText type="password" class="password" [ngClass]="{ 'errors': signinForm.controls['password'].touched && signinForm.controls['password'].errors }" formControlName="password" placeholder="Password">
+                <div class="error-message" *ngIf="signinForm.controls['password'].errors">
+                    <ng-container *ngIf="signinForm.controls['password'].touched && signinForm.controls['password'].hasError('required')">
+                        *Bắt buộc
+                    </ng-container>
+                    <ng-container *ngIf="signinForm.controls['password'].hasError('minlength')">
+                        *Độ dài mật khẩu phải từ 6 ký tự trở lên
+                    </ng-container>
+                </div>
+            </div>
+            <!-- <div class="function">
+                <a routerLink="/forgot-password">Quên mật khẩu</a>
+                <a routerLink="/sign-up">Sign Up</a>
+            </div> -->
+            <button class="btn-submit" type="submit" [disabled]="signinForm.invalid" >Log In</button>
+            
+        </form>
+    </div>
+</div>

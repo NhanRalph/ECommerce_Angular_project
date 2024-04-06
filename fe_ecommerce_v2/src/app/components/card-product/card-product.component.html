@@ -1,0 +1,65 @@
+<div class="container">
+  <div class="header-list-card">
+    <div class="title">
+      Danh Sách Sản Phẩm
+    </div>
+    <div class="filter">
+      <div class="header-list-card-category">
+        <span class="header-list-card-category-item" *ngFor="let category of categories" (click)="getCategoryProduct(category)">
+          {{category}}
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="loading">
+    <p-progressSpinner *ngIf="isLoading" ariaLabel="loading"></p-progressSpinner>
+  </div>
+  <div class="card-product-wrapper" *ngIf="productsList && !isLoading">
+    <!-- Show loading spinner while products are being fetched -->
+
+    <div  class="card-product-item" *ngFor="let product of productsList; index as i">
+      <div [ngClass]="{'none-quantity': product.quantity === 0}">
+        <img class="none-quantity-img" src="assets/img/sold-out.png" alt="soldout">
+      </div>
+      <div class="card-product">
+        <div class="card-product-img">
+          <img alt="{{ product.imgPath}}" src="assets{{ product.imgPath }}" />
+        </div>
+        <div class="card-product-body">
+          <h3 class="card-product-h3">
+            {{ product.productName }}
+          </h3>
+          <div class="card-product-more-info">
+            <p class="card-product-price">
+              {{ product.price | currency }}
+            </p>
+            <p class="card-product-remain">
+              {{ product.quantity }} remaining
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="card-product-item--hover" [ngClass]="{'display-none': product.quantity === 0}">
+        <div class="add-btn" (click)="showDialog(product)">
+          Add to cart
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  
+  <p-dialog class="dialog-wrapper" header="Thêm {{ selectedProduct?.productName }} vào giỏ hàng" [(visible)]="visible" [modal]="true" [style]="{ width: '300px', 'z-index': '1001', padding: '20px', background: '#fff', 'border-radius': '20px' }" [draggable]="false" [resizable]="false">
+
+    <div class="dialog-content" [style]="{'margin': '20px 0'}">
+      <label [style]="{padding: '0 20px 0 0'}" for="quantity">Quantity:</label>
+      <input [style]="{padding: '10px 20px'}" type="number" id="quantity" [(ngModel)]="selectedQuantity" min="1" max="{{ maxQuantity }}" />
+    </div>
+    <div class="dialog-actions">
+      <button [style]="{padding: '10px 20px', 'margin': '10px 10px 0 0'}" pButton type="button" label="Xác Nhận" class="confirm-btn" (click)="addToCart(selectedProduct, selectedQuantity)"></button>
+      <button [style]="{padding: '10px 20px' }" pButton type="button" label="Huỷ" class="cancel-btn" (click)="hideDialog()"></button>
+    </div>
+  </p-dialog>
+</div>
+
+
+
