@@ -18,16 +18,22 @@ Welcome to our ECommerce Angular project, where you can buy your favorite laptop
 2. Backend:
 - Open the be_ecommerce folder in VSCode.
 - Open the Terminal then run this script to install all of necessary package and run the Back end:
+```
 npm install
 npm start
+```
 
 3. Front ent:
 - Open the fe_ecommerce folder in another VSCode window. (The 2 folders must run parallel to each other)
 - Open the Terminal then run this script to install all of necessary package and run the Front end:
+```
 npm i
 ng serve
+```
 
 4. Testing:
 To run tests, use Jest with the following command:
+```
 jest
 jest --coverage
+```
