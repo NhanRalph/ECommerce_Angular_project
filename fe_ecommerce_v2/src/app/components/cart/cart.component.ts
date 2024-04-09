@@ -6,9 +6,11 @@ import { Subject, debounceTime } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import {
   checkoutCart,
+  getCart,
   getQuantityInCart,
 } from 'src/app/shared/store/cartStore/cart.action';
 import {
+  selectCart,
   selectCartQuantity,
   selectCheckoutCart,
 } from 'src/app/shared/store/cartStore/cart.selector';
@@ -62,10 +64,17 @@ export class CartComponent implements OnInit {
   }
 
   getAllCart() {
+    // this.store.dispatch(getCart());
+
+    // this.store.pipe(select(selectCart)).subscribe((state) => {
+    //   this.carts = state;
+    //   this.calculateTotalPrice();
+    //   this.fetchCartQuantity();
+    // });
+
     this.cartService.getCart().subscribe((cart) => {
       this.carts = cart;
       this.calculateTotalPrice();
-      this.fetchCartQuantity();
     });
   }
 
@@ -105,7 +114,8 @@ export class CartComponent implements OnInit {
 
   increaseQuantity(cartItem: Cart) {
     if (cartItem.quantity_in_cart < cartItem.max_quantity) {
-      cartItem.quantity_in_cart++;
+      cartItem.quantity_in_cart += 1;
+
       this.calculateTotalPrice();
       this.updateQuantitySubject.next(cartItem);
     } else {

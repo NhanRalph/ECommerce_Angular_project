@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { CartService } from 'src/app/shared/services/cart/cart.service';
 import {
   OrderHistory,
   OrderHistoryDetails,
 } from 'src/app/shared/services/order/order.modal';
 import { OrderService } from 'src/app/shared/services/order/order.service';
+import { getQuantityInCart } from 'src/app/shared/store/cartStore/cart.action';
 
 @Component({
   selector: 'app-history-order',
@@ -25,7 +28,11 @@ export class HistoryOrderComponent implements OnInit {
 
   historyOrders: OrderHistory[] = [];
 
-  constructor(private orderService: OrderService) {}
+  constructor(
+    private orderService: OrderService,
+    private cartService: CartService,
+    private store: Store
+  ) {}
 
   ngOnInit(): void {
     this.fetchHistoryOrders();
@@ -48,4 +55,16 @@ export class HistoryOrderComponent implements OnInit {
   }
 
   toggleOrder(order: OrderHistory) {}
+
+  rebuy(order: OrderHistoryDetails) {
+    this.cartService.addToCart(order.product_id, order.quantity).subscribe(
+      (response) => {
+        this.store.dispatch(getQuantityInCart());
+      },
+      (error) => {
+        alert('Số lượng trong kho không đủ!');
+      }
+    );
+    console.table(order);
+  }
 }

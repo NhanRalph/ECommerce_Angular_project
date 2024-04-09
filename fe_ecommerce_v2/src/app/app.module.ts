@@ -32,6 +32,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import {
   cartReducer,
   checkoutCartReducer,
+  getCartReducer,
 } from './shared/store/cartStore/cart.reducer';
 import { productReducer } from './shared/store/productStore/product.reducer';
 import { CartEffect } from './shared/store/cartStore/cart.effect';
@@ -76,6 +77,7 @@ import { SigninModule } from './shared/layouts/signin/signin.module';
 
     StoreModule.forRoot({
       checkoutCart: checkoutCartReducer,
+      getCart: getCartReducer,
       cartQuantity: cartReducer,
       products: productReducer,
     }),

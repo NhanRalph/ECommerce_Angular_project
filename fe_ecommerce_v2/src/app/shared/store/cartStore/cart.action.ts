@@ -15,3 +15,9 @@ export const checkoutCartSuccess = createAction(
   '[Cart] Checkout Cart Success',
   props<{ carts: Cart[] }>()
 );
+
+export const getCart = createAction('[Cart] Get Cart');
+export const getCartSuccess = createAction(
+  '[Cart] Get  Cart Success',
+  props<{ carts: Cart[] }>()
+);

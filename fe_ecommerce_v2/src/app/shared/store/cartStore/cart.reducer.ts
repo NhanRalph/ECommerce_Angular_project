@@ -8,6 +8,8 @@ import {
   getQuantityInCartSuccess,
   checkoutCart,
   checkoutCartSuccess,
+  getCart,
+  getCartSuccess,
 } from './cart.action';
 
 export const cartReducer = createReducer(
@@ -17,6 +19,11 @@ export const cartReducer = createReducer(
     ...state,
     quantity: quantity,
   }))
+);
+export const getCartReducer = createReducer(
+  initialCartList,
+  on(getCart, (state) => state),
+  on(getCartSuccess, (state, { carts }) => ({ ...state, carts: carts }))
 );
 
 export const checkoutCartReducer = createReducer(

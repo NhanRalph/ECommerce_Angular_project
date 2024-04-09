@@ -31,9 +31,9 @@
                         </td>
                         <td [style]="{'padding': '20px', 'text-align': 'center'}">{{cartitem.product_price | currency}}</td>
                         <td [style]="{'padding': '20px', 'text-align': 'center'}">
-                            <span (click)="decreaseQuantity(cartitem)" [style]="{'padding': '20px', 'text-align': 'center'}">-</span>
+                            <span (click)="decreaseQuantity(cartitem)" [style]="{'padding': '20px', 'text-align': 'center', 'cursor': 'pointer'}">-</span>
                             {{cartitem.quantity_in_cart}}
-                            <span (click)="increaseQuantity(cartitem)" [style]="{'padding': '20px', 'text-align': 'center'}">+</span>
+                            <span (click)="increaseQuantity(cartitem)" [style]="{'padding': '20px', 'text-align': 'center', 'cursor': 'pointer'}">+</span>
                         </td>
                         <td [style]="{'padding': '20px', 'text-align': 'center', 'color': '#fa541c', 'font-weight': '700'}">{{cartitem.product_price * cartitem.quantity_in_cart | currency}} </td>
                         <td [style]="{'padding': '20px','text-align': 'center', 'color': 'red', }" (click)="delete(cartitem)"><i class="pi pi-trash" style="font-size: 1.5rem; cursor: pointer;" ></i></td>

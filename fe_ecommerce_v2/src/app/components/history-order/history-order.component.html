@@ -62,7 +62,7 @@
                                                 {{orderDetail.quantity}}
                                             </td>
                                             <td [style]="{'padding': '20px', 'text-align': 'center', 'color': '#fa541c', 'font-weight': '700'}">{{orderDetail.price * orderDetail.quantity | currency}} </td>
-                                            <td [style]="{'padding': '20px','text-align': 'center', 'color': 'red', }" >Mua lại</td>
+                                            <td [style]="{'padding': '20px','text-align': 'center', 'color': 'red', 'cursor': 'pointer' }" (click)="rebuy(orderDetail)">Mua lại</td>
                                         </tr>
                                     </ng-template>
                                     <ng-template pTemplate="emptymessage">

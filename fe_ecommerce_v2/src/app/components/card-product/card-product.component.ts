@@ -95,6 +95,7 @@ export class CardProductComponent implements OnInit {
     this.visible = true;
   }
   hideDialog() {
+    this.selectedQuantity = 1;
     this.visible = false;
   }
 }

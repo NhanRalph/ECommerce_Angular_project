@@ -5,9 +5,12 @@ import { CartService } from '../../services/cart/cart.service';
 import {
   checkoutCart,
   checkoutCartSuccess,
+  getCart,
+  getCartSuccess,
   getQuantityInCart,
   getQuantityInCartSuccess,
 } from './cart.action';
+import { Cart } from '../../services/cart/cart.model';
 
 @Injectable()
 export class CartEffect {
@@ -22,6 +25,17 @@ export class CartEffect {
           .pipe(
             map((cart) => getQuantityInCartSuccess({ quantity: cart.quantity }))
           )
+      )
+    )
+  );
+
+  getCart$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getCart),
+      mergeMap(() =>
+        this.cartService
+          .getCart()
+          .pipe(map((carts: Cart[]) => getCartSuccess({ carts: carts })))
       )
     )
   );

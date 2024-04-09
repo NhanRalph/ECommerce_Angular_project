@@ -63,6 +63,7 @@ export class AddressComponent implements OnInit {
   }
 
   changeAddress() {
+    this.visible = true;
     console.log('Address changed');
   }
 

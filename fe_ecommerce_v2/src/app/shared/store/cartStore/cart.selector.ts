@@ -8,6 +8,8 @@ export const selectCartState =
 export const checkoutCartState =
   createFeatureSelector<CartCheckout>('checkoutCart');
 
+export const getCartState = createFeatureSelector<CartCheckout>('getCart');
+
 export const selectCartQuantity = createSelector(
   selectCartState,
   (state: CartQuantity) => state.quantity
@@ -15,5 +17,10 @@ export const selectCartQuantity = createSelector(
 
 export const selectCheckoutCart = createSelector(
   checkoutCartState,
+  (state: CartCheckout) => state.carts
+);
+
+export const selectCart = createSelector(
+  getCartState,
   (state: CartCheckout) => state.carts
 );
