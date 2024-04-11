@@ -1,16 +1,16 @@
-const client = require("../config/database");
+const categoryModel = require("../models/categoryModel");
 
 const getAllCategories = (req, res) => {
-  client.query("SELECT * FROM product_categories", (err, result) => {
-    if (err) {
+  categoryModel
+    .getAllCategories()
+    .then((result) => {
+      const categories = result.rows;
+      res.status(200).json(categories);
+    })
+    .catch((err) => {
       console.error(err);
       res.status(500).json({ error: "Internal Server Error" });
-      return;
-    }
-
-    const categories = result.rows;
-    res.status(200).json(categories);
-  });
+    });
 };
 
 module.exports = {

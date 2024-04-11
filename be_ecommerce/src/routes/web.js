@@ -18,7 +18,11 @@ const {
   updateQuantity,
   deleteProductFromCart,
 } = require("../controllers/cartController");
-const { addAddress, getAddress } = require("../controllers/addressController");
+const {
+  addAddress,
+  getAddress,
+  updateAddress,
+} = require("../controllers/addressController");
 const {
   addOrder,
   getHistoryOrders,
@@ -49,8 +53,9 @@ router.patch("/product/update-quantity/:product_id", updateQuantityProduct);
 router.get("/categories", getAllCategories);
 
 // Endpoints for address
-router.post("/address/add", addAddress);
 router.get("/address", getAddress);
+router.post("/address/add", addAddress);
+router.put("/address/update", updateAddress);
 
 // Endpoints for orders
 router.post("/order/add", addOrder);
