@@ -1,6 +1,6 @@
 <div class="navbar-wrap">
     <div class="navbar">
-        <a class="logo" routerLink="/home" routerLinkActive="active" ariaCurrentWhenActive="page">           
+        <a class="logo" routerLink="/" routerLinkActive="active" ariaCurrentWhenActive="page">           
             <img src="/assets/img/navbar/logo.png" alt="user-avt">
         </a>
             <form action="" class="navbar-search" (submit)="getProduct()">
@@ -8,16 +8,28 @@
                 <input type="text" placeholder="Nhập tên sản phẩm bạn muốn tìm?" name="search" [(ngModel)]="value"/>
                 <button type="submit">Tìm kiếm</button>
             </form>
-        <div class="navbar-user">
-            <div class="cart">
-                <a routerLink="/cart" routerLinkActive="active" ariaCurrentWhenActive="page"> 
-                    <i class="pi pi-shopping-cart" pBadge value="{{ quantity }}" severity="success"></i>
-                </a>
-               
+
+            <div *ngIf="isLogged; then Logged else notLogged">
             </div>
-            <div class="user-avt">
-                <img src="assets/img/navbar/user-avt.jpg" alt="user-avt">
-            </div>
-        </div>
+            <ng-template #Logged >
+                <div class="navbar-user">
+                    <div class="cart">
+                        <a routerLink="/cart" routerLinkActive="active" ariaCurrentWhenActive="page"> 
+                            <i class="pi pi-shopping-cart" pBadge value="{{ quantity }}" severity="success"></i>
+                        </a>
+                       
+                    </div>
+                    <div class="user-avt" (click)="logout()">
+                        <img src="assets/img/navbar/user-avt.jpg" alt="user-avt">
+                    </div>
+                </div>
+            </ng-template>
+            <ng-template #notLogged>
+                <div class="navbar-user">
+                    <div class="login" (click)="login()">
+                        <i class="pi pi-sign-in" style="font-size: 1.5rem"></i>
+                    </div>
+                </div>
+            </ng-template>
     </div>
 </div>

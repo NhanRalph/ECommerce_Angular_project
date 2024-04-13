@@ -22,6 +22,8 @@ export class AddressComponent implements OnInit {
 
   @Output() addressChanged: EventEmitter<Address> = new EventEmitter<Address>();
 
+  haveAddress: boolean = false;
+
   visible: boolean = false;
 
   addressForm = new FormGroup({
@@ -43,6 +45,7 @@ export class AddressComponent implements OnInit {
       if (address.user_id === 0) {
         this.showDialog();
       } else {
+        this.haveAddress = true;
         this.address = address;
         this.addressChanged.emit(this.address); // Emit the address when it's fetched
       }
@@ -62,9 +65,17 @@ export class AddressComponent implements OnInit {
     });
   }
 
+  updateAddress(address: Address) {
+    this.addressService.updateAddress(address).subscribe((data) => {
+      this.address = data;
+      this.addressChanged.emit(this.address); // Emit the address when it's updated
+
+      this.fetchAddress();
+    });
+  }
+
   changeAddress() {
     this.visible = true;
-    console.log('Address changed');
   }
 
   onSubmit() {
@@ -72,12 +83,16 @@ export class AddressComponent implements OnInit {
       user_id: 1,
       client_name: this.addressForm.value.client_name as string,
       client_phone: this.addressForm.value.client_phone as string,
-      address_id: 1,
+      address_id: 20,
       address: this.addressForm.value.address as string,
       city: this.addressForm.value.city as string,
       country: this.addressForm.value.country as string,
     };
     this.visible = false;
-    this.addNewAddress(this.address);
+    if (this.haveAddress) {
+      this.updateAddress(this.address);
+    } else {
+      this.addNewAddress(this.address);
+    }
   }
 }

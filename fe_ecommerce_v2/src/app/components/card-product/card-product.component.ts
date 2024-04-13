@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { CartService } from 'src/app/shared/services/cart/cart.service';
 import { CategoryService } from 'src/app/shared/services/category/category.service';
 import { Product } from 'src/app/shared/services/product/product.model';
@@ -30,13 +31,22 @@ export class CardProductComponent implements OnInit {
     private store: Store,
     private category: CategoryService,
     private product: ProductService,
-    private cart: CartService
+    private cart: CartService,
+    private authService: AuthService
   ) {}
 
+  isLoggedIn(): boolean {
+    return this.authService.isLoggedIn();
+  }
+
   ngOnInit(): void {
+    //call action in store
     this.fetchProducts();
 
+    //get products from store
     this.selectProduct();
+
+    console.log('>>>>' + this.isLoggedIn());
 
     this.category.getCategory().subscribe(
       (categories: string[]) => {
@@ -90,9 +100,14 @@ export class CardProductComponent implements OnInit {
   }
 
   showDialog(product: Product) {
-    this.selectedProduct = product;
-    this.maxQuantity = product.quantity;
-    this.visible = true;
+    if (!this.isLoggedIn()) {
+      alert('Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng!');
+      return;
+    } else {
+      this.selectedProduct = product;
+      this.maxQuantity = product.quantity;
+      this.visible = true;
+    }
   }
   hideDialog() {
     this.selectedQuantity = 1;

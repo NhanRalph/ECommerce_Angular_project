@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
+import { UserService } from '../../services/user/user.service';
 
 @Component({
   selector: 'app-signin',
@@ -10,13 +11,14 @@ import { AuthService } from '../../services/auth/auth.service';
 })
 export class SigninComponent implements OnInit {
   signinForm: FormGroup;
-  isLoggingIn = false;
+  isLoggingIn!: boolean;
   isRecoveringPassword = false;
 
   constructor(
     private fb: FormBuilder,
-    private authenticationService: AuthService,
-    private router: Router
+    private userService: UserService,
+    private router: Router,
+    private authService: AuthService
   ) {
     this.signinForm = this.fb.group({
       email: ['', Validators.compose([Validators.required, Validators.email])],
@@ -33,16 +35,13 @@ export class SigninComponent implements OnInit {
   ngOnInit() {}
 
   login() {
-    this.isLoggingIn = true;
-
-    this.authenticationService
+    this.userService
       .signIn(this.signinForm.value.email, this.signinForm.value.password)
       .subscribe({
         next: () => {
-          this.router.navigate(['home']);
+          this.router.navigate(['']);
         },
         error: (error: any) => {
-          this.isLoggingIn = false;
           alert(error.message);
         },
       });

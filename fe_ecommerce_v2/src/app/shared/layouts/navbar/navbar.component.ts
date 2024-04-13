@@ -8,6 +8,9 @@ import {
   getAllProducts,
   getProductByName,
 } from '../../store/productStore/product.action';
+import { UserService } from '../../services/user/user.service';
+import { AuthService } from '../../services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -22,7 +25,10 @@ export class NavbarComponent implements OnInit {
   constructor(
     private store: Store,
     private cart: CartService,
-    private product: ProductService
+    private product: ProductService,
+    private userService: UserService,
+    private authService: AuthService,
+    private router: Router
   ) {
     // this.cart.getQuantityInCart().subscribe((quantity) => {
     //   this.quantity = quantity.quantity;
@@ -32,6 +38,8 @@ export class NavbarComponent implements OnInit {
       this.quantity = state;
     });
   }
+
+  isLogged: boolean = this.authService.isLoggedIn();
 
   ngOnInit(): void {}
 
@@ -47,5 +55,14 @@ export class NavbarComponent implements OnInit {
     if (this.value.trim() === '') {
       this.store.dispatch(getAllProducts());
     }
+  }
+
+  login() {
+    // this.userService.login();
+    this.router.navigate(['/signin']);
+  }
+
+  logout() {
+    this.userService.logout();
   }
 }

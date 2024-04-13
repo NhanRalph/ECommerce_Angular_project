@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomepageComponent } from './shared/layouts/homepage/homepage.component';
 import { CartpageComponent } from './shared/layouts/cartpage/cartpage.component';
 import { CheckoutPageComponent } from './shared/layouts/checkout-page/checkout-page.component';
+import { AuthGuard } from './shared/services/auth/auth.guard';
+import { AuthLoggedGuard } from './shared/services/auth/authLogged.guard';
 
 const routes: Routes = [
   {
@@ -11,7 +13,7 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'home',
+    path: '',
     component: HomepageComponent,
   },
   {
@@ -20,21 +22,24 @@ const routes: Routes = [
       import('./shared/layouts/signin/signin.module').then(
         (m) => m.SigninModule
       ),
+    canActivate: [AuthLoggedGuard],
   },
   {
     path: 'cart',
     component: CartpageComponent,
+    canActivate: [AuthGuard],
   },
 
   {
     path: 'checkout',
     component: CheckoutPageComponent,
+    canActivate: [AuthGuard],
   },
 
   // Wildcard route to redirect to HomepageComponent for all other paths
   {
     path: '**',
-    redirectTo: 'home',
+    redirectTo: '/home',
     pathMatch: 'full',
   },
 ];

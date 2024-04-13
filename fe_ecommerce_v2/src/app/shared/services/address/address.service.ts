@@ -34,6 +34,18 @@ export class AddressService {
       );
   }
 
+  updateAddress(address: Address): Observable<Address> {
+    return this.http.put<Address>(`http://localhost:8080/address/update`, {
+      user_id: address.user_id,
+      client_name: address.client_name,
+      client_phone: address.client_phone,
+      address_id: address.address_id,
+      address: address.address,
+      city: address.city,
+      country: address.country,
+    });
+  }
+
   getAddress(): Observable<Address> {
     return this.http
       .get<Address[]>(`http://localhost:8080/address?user_id=${this.user_id}`)

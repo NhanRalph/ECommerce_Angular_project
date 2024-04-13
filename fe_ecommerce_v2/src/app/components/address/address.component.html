@@ -3,7 +3,7 @@
         Địa chỉ nhận hàng
     </div>
     <div class="header__description">
-        <div *ngIf="address.user_id === 0; then addAddress else showAddress">
+        <div *ngIf="!haveAddress; then addAddress else showAddress">
         </div>
         <ng-template #addAddress >
             <div class="add-address" (click)="showDialog()">*Thêm mới</div>
