@@ -28,18 +28,19 @@ const {
   getHistoryOrders,
   getHistoryOrderDetail,
 } = require("../controllers/orderController");
-const { signin, getUser } = require("../controllers/authController");
+const { signin, getUser, signup } = require("../controllers/authController");
 
 //Endpoints for Get User
 router.get("/get-user", getUser);
 
 //Endpoints for Authen
 router.post("/signin", signin);
+router.post("/signup", signup);
 
 // Endpoint to add a product to the cart
 router.post("/add-to-cart", addToCart);
 router.get("/quantity-in-cart", getQuantityInCart);
-router.get("/cart", getCart);
+router.get("/cart/:user_id", getCart);
 router.put("/cart/update-quantity", updateQuantity);
 router.delete(
   "/cart/delete-product/:cart_id/:product_id",

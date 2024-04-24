@@ -9,9 +9,10 @@ const getQuantityInCart = async () => {
   }
 };
 
-const getCartItems = async () => {
+const getCartItems = async (user_id) => {
   try {
-    const result = await client.query(`
+    const result = await client.query(
+      `
       SELECT 
         p.product_id,
         p.product_name,
@@ -26,8 +27,11 @@ const getCartItems = async () => {
       JOIN 
         products p ON ci.product_id = p.product_id
       JOIN 
-        cart c ON ci.cart_id = c.cart_id;
-    `);
+        cart c ON ci.cart_id = c.cart_id
+      WHERE c.user_id = $1;
+    `,
+      [user_id]
+    );
     return result.rows;
   } catch (error) {
     throw new Error("Internal Server Error");

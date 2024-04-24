@@ -10,8 +10,9 @@ const getQuantityInCart = async (req, res) => {
 };
 
 const getCart = async (req, res) => {
+  const { user_id } = req.params;
   try {
-    const cart = await cartModel.getCartItems();
+    const cart = await cartModel.getCartItems(user_id);
     res.status(200).json(cart);
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
