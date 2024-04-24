@@ -11,10 +11,8 @@ import { AuthService } from '../auth/auth.service';
   providedIn: 'root',
 })
 export class OrderService {
-  user_id: number | null;
-  constructor(private http: HttpClient, private auth: AuthService) {
-    this.user_id = this.auth.getUserId();
-  }
+  user_id!: number | null;
+  constructor(private http: HttpClient, private auth: AuthService) {}
 
   checkout(address: Address, cartItems: Cart[]): Observable<any> {
     const user_id = address.user_id;
@@ -71,6 +69,7 @@ export class OrderService {
   }
 
   getHistoryOrders(): Observable<OrderHistory[]> {
+    this.user_id = this.auth.getUserId();
     return this.http
       .get<OrderHistory[]>(
         `http://localhost:8080/order/history/${this.user_id}`
@@ -93,6 +92,7 @@ export class OrderService {
   }
 
   getHistoryOrderDetails(order_id: number): Observable<OrderHistoryDetails[]> {
+    this.user_id = this.auth.getUserId();
     return this.http
       .get<OrderHistoryDetails[]>(
         `http://localhost:8080/order/history/${this.user_id}/${order_id}`

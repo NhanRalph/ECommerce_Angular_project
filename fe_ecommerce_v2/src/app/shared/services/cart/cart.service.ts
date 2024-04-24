@@ -24,10 +24,8 @@ export const initialCartList: CartCheckout = {
   providedIn: 'root',
 })
 export class CartService {
-  user_id: number | null;
-  constructor(private http: HttpClient, private auth: AuthService) {
-    this.user_id = this.auth.getUserId();
-  }
+  user_id!: number | null;
+  constructor(private http: HttpClient, private auth: AuthService) {}
 
   getQuantityInCart(): Observable<{ quantity: number }> {
     return this.http.get<{ quantity: number }>(
@@ -44,21 +42,24 @@ export class CartService {
   }
 
   getCart(): Observable<Cart[]> {
-    return this.http.get<Cart[]>(`http://localhost:8080/cart/`).pipe(
-      map((cartArray: any[]) => {
-        return cartArray.map((cart) => ({
-          product_id: cart.product_id,
-          cart_id: cart.cart_id,
-          product_name: cart.product_name,
-          product_price: parseFloat(cart.product_price),
-          quantity_in_cart: cart.quantity_in_cart,
-          max_quantity: cart.max_quantity,
-          total_price: parseFloat(cart.total_price),
-          product_image: cart.img_path,
-          checked: false,
-        }));
-      })
-    );
+    this.user_id = this.auth.getUserId();
+    return this.http
+      .get<Cart[]>(`http://localhost:8080/cart/${this.user_id}`)
+      .pipe(
+        map((cartArray: any[]) => {
+          return cartArray.map((cart) => ({
+            product_id: cart.product_id,
+            cart_id: cart.cart_id,
+            product_name: cart.product_name,
+            product_price: parseFloat(cart.product_price),
+            quantity_in_cart: cart.quantity_in_cart,
+            max_quantity: cart.max_quantity,
+            total_price: parseFloat(cart.total_price),
+            product_image: cart.img_path,
+            checked: false,
+          }));
+        })
+      );
   }
 
   updataCartQuantity(

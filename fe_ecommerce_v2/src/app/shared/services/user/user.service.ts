@@ -33,6 +33,7 @@ export class UserService {
   logout(): void {
     // Clear stored authentication data
     localStorage.removeItem('user');
+    localStorage.removeItem('user_id');
     // Redirect to sign-in page
     this.router.navigate(['/signin']);
   }

@@ -8,10 +8,8 @@ import { AuthService } from '../auth/auth.service';
   providedIn: 'root',
 })
 export class AddressService {
-  user_id: number | null;
-  constructor(private http: HttpClient, private auth: AuthService) {
-    this.user_id = this.auth.getUserId();
-  }
+  user_id!: number | null;
+  constructor(private http: HttpClient, private auth: AuthService) {}
 
   addNewAddress(address: Address): Observable<Address> {
     // Adjust the return type
@@ -47,6 +45,7 @@ export class AddressService {
   }
 
   getAddress(): Observable<Address> {
+    this.user_id = this.auth.getUserId();
     return this.http
       .get<Address[]>(`http://localhost:8080/address?user_id=${this.user_id}`)
       .pipe(
